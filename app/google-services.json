@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1031794441964",
+    "firebase_url": "https://gotospahoathan.firebaseio.com",
+    "project_id": "gotospahoathan",
+    "storage_bucket": "gotospahoathan.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1031794441964:android:ab857ff6bcbda30a",
+        "android_client_info": {
+          "package_name": "com.hoathan.hoa.demogotospa"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1031794441964-rsamt3isauclvdkf5ipqi5lv0jjdlo2o.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hoathan.hoa.demogotospa",
+            "certificate_hash": "ed96e4d9304177ad90818ca18585669a53a82e3a"
+          }
+        },
+        {
+          "client_id": "1031794441964-3bku2qvdi1qpok6oluon0ohuqdobm9ip.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFRFusNMeXCdQpS0YDJCjVrjia97yWCM0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1031794441964-3bku2qvdi1qpok6oluon0ohuqdobm9ip.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,40 @@
+<resources>
+
+    <string name="facebook_app_id">1588360147873463</string>
+    <string name="app_name">DemoGotoSpa</string>
+    <string name="news">news</string>
+    <string name="host">host</string>
+    <string name="register">register</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="login_with_facebook">Login with Facebook</string>
+
+    <string name="label_text_mail">Email</string>
+    <string name="label_text_pass">Password</string>
+    <string name="hint_login_text_mail">Email</string>
+    <string name="hint_login_text_pass">Password</string>
+
+    <string name="hint_sign_in_user_name">User name</string>
+    <string name="hint_sign_in_pass">Password</string>
+    <string name="hint_sign_in_pass_again">Re-enter password</string>
+    <string name="hint_sign_in_phone">Phone</string>
+    <string name="hint_sign_in_email">Email</string>
+    <string name="label_text_sign_in_user">User name</string>
+    <string name="label_text_sign_in_pass">Pass word</string>
+    <string name="label_text_sign_in_pass_again">Re-enter password</string>
+    <string name="label_text_sign_in_phone">Phone</string>
+    <string name="label_text_sign_in_email">Email</string>
+
+    <string name="user_name">User Name</string>
+    <string name="email">Email</string>
+
+    <string name="email_error">Email not correct</string>
+    <string name="pass_error">Password is not long enough</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="map_key">AIzaSyDSaxYM6hxZFtXEHnY-Oq3dOX6Ax-qZ1t0</string>
+</resources>

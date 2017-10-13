@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_white"
+    tools:context="com.hoathan.hoa.demogotospa.ui.activity.LogInActivity">
+
+    <ImageView
+        android:id="@+id/img_logo"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:src="@drawable/logo_spa" />
+
+    <TextView
+        android:id="@+id/txv_with_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/img_logo"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="@dimen/dimen_10"
+        android:text="Or login with email" />
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/met_sign_in_email"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txv_with_email"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dimen_5"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
+        android:textColorHint="@color/color_line"
+        app:met_baseColor="@color/color_gray"
+        app:met_floatingLabel="highlight"
+        app:met_floatingLabelText="@string/label_text_mail"
+        app:met_maxCharacters="30"
+        app:met_primaryColor="@color/color_line"
+        app:met_singleLineEllipsis="true"
+        app:met_textColorHint="@color/color_gray" />
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/met_sign_in_password"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/met_sign_in_email"
+        android:layout_centerHorizontal="true"
+        android:hint="@string/hint_login_text_pass"
+        android:inputType="textPassword"
+        android:textColorHint="@color/color_line"
+        app:met_baseColor="@color/color_gray"
+        app:met_errorColor="@color/color_line"
+        app:met_floatingLabel="highlight"
+        app:met_floatingLabelText="@string/label_text_pass"
+        app:met_maxCharacters="20"
+        app:met_primaryColor="@color/color_line"
+        app:met_singleLineEllipsis="true"
+        app:met_textColorHint="@color/color_gray" />
+
+
+    <Button
+
+        android:id="@+id/btn_sign_in"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:layout_below="@+id/met_sign_in_password"
+        android:layout_centerHorizontal="true"
+        android:layout_marginRight="@dimen/dimen_40"
+        android:background="@drawable/button_selecter"
+        android:onClick="onClick"
+        android:text="Sign In"
+        android:textColor="@color/color_white" />
+
+
+</RelativeLayout>
