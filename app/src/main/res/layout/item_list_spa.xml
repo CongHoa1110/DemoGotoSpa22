@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/color_white">
+
+    <RelativeLayout
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dimen_10"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/img_spa_custom"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/spa_two" />
+
+        <LinearLayout
+            android:padding="@dimen/dimen_10"
+            android:layout_marginTop="@dimen/dimen_20"
+            android:id="@+id/ln_spa_dienthoai"
+            android:layout_below="@id/img_spa_custom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageButton
+                android:id="@+id/img_spa_icon_phone"
+                android:background="@null"
+                android:scaleType="fitXY"
+                android:src="@drawable/icon_dienthoai"
+                android:layout_width="18dp"
+                android:layout_height="18dp" />
+
+            <TextView
+                android:id="@+id/txv_spa_phone"
+                android:layout_marginLeft="@dimen/dimen_10"
+                android:textSize="@dimen/text_18"
+                android:textStyle="bold"
+                android:layout_gravity="center_vertical"
+                android:text="0906072368"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/img_spa_custom"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txv_spa_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="2"
+                android:text="aaaaaaaaaaaaaaaaaaaaaaaaaa"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+            <TextView
+                android:id="@+id/txv_spa_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="2"
+                android:text="aaaaaaaaaaaaaaaaaaaaaaaaaa"
+                android:textSize="12sp"
+                 />
+
+
+            <TextView
+                android:id="@+id/txv_spa_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:maxLines="2"
+                android:text="aaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" />
+
+            <TextView
+                android:id="@+id/txv_Spa_Email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:maxLines="2"
+                android:text="aaaaaaaaaaaaaaaaaaaaaaaaaa" />
+        </LinearLayout>
+
+
+        <View
+            android:id="@+id/view_spa"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_below="@id/ln_spa_dienthoai"
+            android:layout_marginTop="@dimen/dimen_5"
+            android:background="@color/color_line2" />
+
+        <LinearLayout
+            android:id="@+id/ln_spa"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/view_spa"
+            android:layout_marginTop="5dp">
+
+            <ImageView
+                android:id="@+id/img_spa_icon_point"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+               />
+
+            <TextView
+                android:id="@+id/txv_spa_point"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:text="23" />
+
+            <ImageView
+                android:id="@+id/img_spa_binhluan"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/comment" />
+
+            <TextView
+                android:id="@+id/txv_spa_soBInhLuan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:text="23" />
+
+            <TextView
+                android:id="@+id/txv_chitietSpa"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+              android:layout_gravity="center_vertical"
+                android:padding="2dp"
+                android:maxLines="1"
+                android:gravity="right"
+                android:layout_marginRight="@dimen/dimen_5"
+                android:drawableRight="@drawable/icon_next"
+                android:text="Chi Tiêt Spa"
+                android:background="@drawable/item_chitiet_selecter"
+                android:textSize="@dimen/text_18"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="15dp"
+        android:layout_below="@+id/view"
+        android:background="@color/color_line"></LinearLayout>
+</RelativeLayout>

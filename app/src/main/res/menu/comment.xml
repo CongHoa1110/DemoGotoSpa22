@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/comment_nhanthongbao"
+        android:orderInCategory="100"
+        android:title="Nhận Thông Báo"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/comment_baoxau"
+        android:orderInCategory="100"
+        android:title="Báo Xấu"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/comment_xoa"
+        android:orderInCategory="100"
+        android:title="Xóa Spa"
+        app:showAsAction="never" />
+    <item android:id="@+id/comment_binhluan"
+        android:icon="@drawable/iconsnew_message"
+        android:title="commnent"
+        app:showAsAction="ifRoom|collapseActionView"/>
+</menu>

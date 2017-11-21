@@ -1,0 +1,37 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.hoathan.hoa.demogotospa.ui.fragment.information.UpdateInfoFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+   <include
+       android:id="@+id/ic_toobar"
+       layout="@layout/ic_toobar"/>
+
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_below="@+id/ic_toobar"
+        android:id="@+id/img_update_spa_Avatar"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignBottom="@+id/img_spa_background"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:layout_marginLeft="@dimen/dimen_10"
+        android:src="@drawable/spa_two" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fl_btn_add_image"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignBottom="@+id/img_update_spa_Avatar"
+        android:layout_alignEnd="@+id/img_update_spa_Avatar"
+        android:layout_marginBottom="10dp"
+        app:backgroundTint="@color/color_white_gray"
+        app:srcCompat="@mipmap/icons_camera_black" />
+
+
+
+
+</RelativeLayout>

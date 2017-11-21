@@ -1,0 +1,38 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.hoathan.hoa.demogotospa.ui.fragment.information.LanguageFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <include layout="@layout/ic_toobar" />
+
+    <TextView
+        android:id="@+id/txv_language"
+        android:background="@drawable/texview_selecter"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:paddingLeft="@dimen/dimen_10"
+        android:paddingTop="@dimen/dimen_5"
+        android:paddingBottom="@dimen/dimen_5"
+        android:gravity="center_vertical"
+        android:text="Language"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableRight="@drawable/icon_next" />
+
+    <TextView
+        android:id="@+id/txv_fonts"
+        android:background="@drawable/texview_selecter"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:paddingTop="@dimen/dimen_5"
+        android:paddingBottom="@dimen/dimen_5"
+        android:paddingLeft="@dimen/dimen_10"
+        android:gravity="center_vertical"
+        android:text="Fonts"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableRight="@drawable/icon_next" />
+
+
+</LinearLayout>
