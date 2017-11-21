@@ -27,7 +27,7 @@
             android:textAlignment="textStart"
             android:textColor="@android:color/black"
             android:textSize="14sp"
-            tools:text="@string/language_english"
+            tools:text="english"
             />
     </FrameLayout>
 </layout>
