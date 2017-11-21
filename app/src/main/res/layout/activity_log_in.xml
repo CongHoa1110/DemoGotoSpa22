@@ -52,7 +52,7 @@
         android:inputType="textPassword"
         android:textColorHint="@color/color_line"
         app:met_baseColor="@color/color_gray"
-        app:met_errorColor="@color/color_line"
+        app:met_errorColor="@color/colorAccent"
         app:met_floatingLabel="highlight"
         app:met_floatingLabelText="@string/label_text_pass"
         app:met_maxCharacters="20"

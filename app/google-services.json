@@ -15,14 +15,6 @@
       },
       "oauth_client": [
         {
-          "client_id": "1031794441964-rsamt3isauclvdkf5ipqi5lv0jjdlo2o.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.hoathan.hoa.demogotospa",
-            "certificate_hash": "ed96e4d9304177ad90818ca18585669a53a82e3a"
-          }
-        },
-        {
           "client_id": "1031794441964-3bku2qvdi1qpok6oluon0ohuqdobm9ip.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -37,13 +29,8 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 2,
-          "other_platform_oauth_client": [
-            {
-              "client_id": "1031794441964-3bku2qvdi1qpok6oluon0ohuqdobm9ip.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "status": 1,
+          "other_platform_oauth_client": []
         },
         "ads_service": {
           "status": 2

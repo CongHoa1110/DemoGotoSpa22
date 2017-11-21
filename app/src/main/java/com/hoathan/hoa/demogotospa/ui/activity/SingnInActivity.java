@@ -4,14 +4,18 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.hoathan.hoa.demogotospa.R;
 import com.hoathan.hoa.demogotospa.ui.base.BaseActivity;
 import com.hoathan.hoa.demogotospa.util.Util;
@@ -29,6 +33,8 @@ public class SingnInActivity extends BaseActivity implements View.OnClickListene
 
     private ProgressDialog progressDialog;
 
+    private Snackbar snackbar;
+    private RelativeLayout relativeLayout;
 
     @Override
     protected int setLayout() {
@@ -38,7 +44,6 @@ public class SingnInActivity extends BaseActivity implements View.OnClickListene
     @Override
     protected void initialViews(Bundle savedInstanceState) {
         initUI();
-
     }
 
     @Override
@@ -53,7 +58,14 @@ public class SingnInActivity extends BaseActivity implements View.OnClickListene
     protected int getFragmentContainerResID() {
         return 0;
     }
+
+    @Override
+    protected int getFragmentContainerResIDFull() {
+        return 0;
+    }
+
     private void initUI(){
+        relativeLayout = (RelativeLayout) findViewById(R.id.relativelayout);
         metEmail = (MaterialEditText) findViewById(R.id.met_sign_in_email);
         metPassword = (MaterialEditText) findViewById(R.id.met_sign_in_password);
         btnSignIn = (Button) findViewById(R.id.btn_sign_in);
@@ -66,32 +78,40 @@ public class SingnInActivity extends BaseActivity implements View.OnClickListene
                 case R.id.btn_sign_in:
                     progressDialog.show();
                     if (checkInputData()){
-                        singIn();
+                        signIn();
                     }else {
                         progressDialog.dismiss();
                     }
-
                     break;
             }
     }
-    private void singIn(){
+    private void signIn(){
         String email = metEmail.getText().toString();
         String password = metPassword.getText().toString();
-
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
+                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
-                            Toast.makeText(SingnInActivity.this, "dang ki thanh cong", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(SingnInActivity.this, MainActivity.class));
-                            overridePendingTransition(R.anim.anim_intent_entervao,R.anim.anim_intent_editra);
-                            progressDialog.dismiss();
-                            finish();
+                            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                            user.sendEmailVerification()
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if (task.isSuccessful()) {
+                                                startActivity(new Intent(SingnInActivity.this, HomeActivity.class));
+                                                overridePendingTransition(R.anim.anim_intent_entervao, R.anim.anim_intent_editra);
+                                                finish();
+                                            }else {
+                                                snackbar = Snackbar.make(relativeLayout,"error :" + task.getException(),Snackbar.LENGTH_LONG);
+                                                snackbar.show();
+                                            }
+                                        }
+                                    });
                         }else {
-                            Toast.makeText(SingnInActivity.this, "khong thanh cong", Toast.LENGTH_SHORT).show();
-                        }
-
+                            snackbar = Snackbar.make(relativeLayout,"error :" + task.getException(),Snackbar.LENGTH_LONG);
+                            snackbar.show();                        }
+                        progressDialog.dismiss();
                     }
                 });
     }
@@ -102,13 +122,11 @@ public class SingnInActivity extends BaseActivity implements View.OnClickListene
             if (!Util.isEmailValid(email)) {
                 metEmail.requestFocus();
                 metEmail.setError(getResources().getString(R.string.email_error));
-
                 return false;
             } else {
                 if (password.length() < 6) {
                     metPassword.requestFocus();
                     metPassword.setError(getResources().getString(R.string.pass_error));
-
                     return false;
                 }
             }
@@ -117,4 +135,35 @@ public class SingnInActivity extends BaseActivity implements View.OnClickListene
             return false;
         }
     }
+    private void sendEmailVerification() {
+        // Disable button
+
+        // Send verification email
+        // [START send_email_verification]
+        final FirebaseUser user = mAuth.getCurrentUser();
+        user.sendEmailVerification()
+                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        // [START_EXCLUDE]
+                        // Re-enable button
+
+                        if (task.isSuccessful()) {
+                            Toast.makeText(SingnInActivity.this,
+                                    "Verification email sent to " + user.getEmail(),
+                                    Toast.LENGTH_SHORT).show();
+
+                            signIn();
+                        } else {
+                            Log.e("tag", "sendEmailVerification", task.getException());
+                            Toast.makeText(SingnInActivity.this,
+                                    "Failed to send verification email.",
+                                    Toast.LENGTH_LONG).show();
+                        }
+                        // [END_EXCLUDE]
+                    }
+                });
+        // [END send_email_verification]
+    }
+
 }

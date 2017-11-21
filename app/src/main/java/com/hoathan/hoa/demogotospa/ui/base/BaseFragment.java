@@ -7,8 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.hoathan.hoa.demogotospa.ui.fragment.home.HomeFragment;
-
 
 public abstract class BaseFragment extends Fragment {
     public BaseActivity baseActivity;
@@ -31,4 +29,5 @@ public abstract class BaseFragment extends Fragment {
     protected abstract void initialViews(View view, Bundle bundle);
 
     protected abstract void initialVariables();
+
 }
