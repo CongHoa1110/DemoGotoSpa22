@@ -1,4 +1,4 @@
-package com.hoathan.hoa.demogotospa.ui.fragment.home;
+package com.hoathan.hoa.demogotospa.ui.fragment.host;
 
 
 import android.app.Activity;
@@ -265,7 +265,7 @@ public class HostFragment extends BaseFragment implements NavigationView.OnNavig
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         menu.clear();
         inflater.inflate(R.menu.host, menu);
-        SearchView searchView = (SearchView) menu.findItem(R.id.menu_search).getActionView();
+        SearchView searchView = (SearchView) menu.findItem(R.id.menu_search_host).getActionView();
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextChange(String newText) {
@@ -317,7 +317,6 @@ public class HostFragment extends BaseFragment implements NavigationView.OnNavig
                 getActivity(), drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
-
         NavigationView navigationView = (NavigationView) view.findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
@@ -325,7 +324,7 @@ public class HostFragment extends BaseFragment implements NavigationView.OnNavig
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.action) {
+        if (id == R.id.menu_chualamgi) {
             return true;
         }
 
@@ -337,7 +336,7 @@ public class HostFragment extends BaseFragment implements NavigationView.OnNavig
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.nav_changer_password) {
+        if (id == R.id.nav_camera) {
             // changerPassword();
             Toast.makeText(getActivity(), "nav_changer_password", Toast.LENGTH_SHORT).show();
 

@@ -61,7 +61,6 @@ import com.hoathan.hoa.demogotospa.R;
 import com.hoathan.hoa.demogotospa.adapter.ImageViewpageAdapter;
 import com.hoathan.hoa.demogotospa.data.model.Spa;
 import com.hoathan.hoa.demogotospa.listener.ImageViewpagerListener;
-import com.hoathan.hoa.demogotospa.ui.base.BaseActivity;
 import com.hoathan.hoa.demogotospa.ui.base.BaseFragment;
 
 import java.io.FileNotFoundException;
@@ -146,13 +145,11 @@ public class RegisterSpaFragment extends BaseFragment implements View.OnClickLis
     }
 
     private void iUnit(View view) {
-        btnDemo = (Button) view.findViewById(R.id.btn_register_demo);
-        btnDemo.setOnClickListener(this);
 
         imgBack = (ImageView) view.findViewById(R.id.img_toobal_back);
         imgBack.setOnClickListener(this);
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager()
-                .findFragmentById(R.id.map);
+                .findFragmentById(R.id.map_register);
         mapFragment.getMapAsync(this);
         prbLoad = (ProgressBar) view.findViewById(R.id.prb_load);
         btnRegister = (Button) view.findViewById(R.id.btn_register_register);
@@ -244,9 +241,7 @@ public class RegisterSpaFragment extends BaseFragment implements View.OnClickLis
             case R.id.edt_register_address:
                 placeAutoComplete();
                 break;
-            case R.id.btn_register_demo:
-                baseActivity.setCurrentTab(BaseActivity.TITLE_HOST);
-                baseActivity.pushFragment(new DemoFragment(), true);
+
         }
     }
 

@@ -221,6 +221,7 @@ public class NewsFragment extends BaseFragment {
         prbLoad.setVisibility(View.VISIBLE);
         toolbar = (Toolbar) view.findViewById(R.id.toolbar);
         toolbar.setTitle("");
+
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
 
     }

@@ -20,7 +20,6 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Locale;
-import java.util.Random;
 
 /**
  * Created by Tungnguyenbk54 on 10/26/2017.
@@ -149,10 +148,10 @@ public class SpaAdapterRecyclerView extends RecyclerView.Adapter<RecyclerView.Vi
           }
             if (spa.getSpaImage() != null) {
 
-                int vitri = spa.getSpaImage().size() - 1;
+                /*int vitri = spa.getSpaImage().size() - 1;
                 Random random = new Random();
-                int vt = random.nextInt(vitri);
-                Picasso.with(context).load(spa.getSpaImage().get(vt)).resize(100, 100)
+                int vt = random.nextInt(vitri);*/
+                Picasso.with(context).load(spa.getSpaImage().get(0)).resize(100, 100)
                         .centerCrop().into(spaViewHolder.imgSpa);
             }
           /*  holder.itemView.setOnClickListener(onClick_item_chitiet);

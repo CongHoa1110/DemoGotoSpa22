@@ -19,14 +19,12 @@ import com.hoathan.hoa.demogotospa.ui.fragment.HomeFragment;
      protected void initialViews(Bundle savedInstanceState) {
          setCurrentTab(TITLE_HOST);
          pushFragment(new HomeFragment(),true);
-
      }
 
      @Override
      protected void initialVariables() {
 
      }
-
      @Override
      protected int getFragmentContainerResID() {
          return R.id.fram_home;

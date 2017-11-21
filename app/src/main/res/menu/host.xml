@@ -3,13 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     >
     <item
-        android:id="@+id/menu_add"
-        android:icon="@mipmap/icons_add"
+        android:id="@+id/menu_chualamgi"
         android:orderInCategory="100"
-        android:title="add"
-        app:showAsAction="always" />
+        android:title="chua lam gi"
+        app:showAsAction="never" />
     <item
-        android:id="@+id/menu_search_news"
+        android:id="@+id/menu_search_host"
         android:icon="@mipmap/icons_search"
         android:title="setting"
         app:actionViewClass="android.support.v7.widget.SearchView"

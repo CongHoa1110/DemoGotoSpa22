@@ -36,5 +36,22 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="map_key">AIzaSyDSaxYM6hxZFtXEHnY-Oq3dOX6Ax-qZ1t0</string>
+    <string name="map_key">AIzaSyCqSnZJ-7NCkx79LcPrunbGu_XjsmiOgn4</string>
+    <string name="language_english" translatable="false">English</string>
+    <string name="language_japanese" translatable="false">日本の</string>
+    <string name="language_vietnamese" translatable="false">Tiếng Việt</string>
+    <string-array name="language_names">
+        <item>@string/language_english</item>
+        <item>@string/language_japanese</item>
+        <item>@string/language_vietnamese</item>
+    </string-array>
+    <string name="language_english_code" translatable="false">en</string>
+    <string name="language_japanese_code" translatable="false">ja</string>
+    <string name="language_vietnamese_code" translatable="false">vi</string>
+
+    <string-array name="language_codes">
+        <item>@string/language_english_code</item>
+        <item>@string/language_japanese_code</item>
+        <item>@string/language_vietnamese_code</item>
+    </string-array>
 </resources>

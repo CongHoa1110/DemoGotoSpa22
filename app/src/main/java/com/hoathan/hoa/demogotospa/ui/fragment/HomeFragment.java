@@ -10,7 +10,7 @@ import android.widget.ImageView;
 
 import com.hoathan.hoa.demogotospa.R;
 import com.hoathan.hoa.demogotospa.ui.base.BaseFragment;
-import com.hoathan.hoa.demogotospa.ui.fragment.home.HostFragment;
+import com.hoathan.hoa.demogotospa.ui.fragment.host.HostFragment;
 import com.hoathan.hoa.demogotospa.ui.fragment.news.NewsFragment;
 import com.hoathan.hoa.demogotospa.ui.fragment.information.InformationMainFragment;
 

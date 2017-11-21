@@ -1,4 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:CircleIndicator="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -8,6 +8,7 @@
     tools:context="com.hoathan.hoa.demogotospa.ui.fragment.RegisterSpaFragment">
 
     <RelativeLayout
+        android:id="@+id/rlt_toobar"
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:background="@color/colorPrimary">
@@ -20,7 +21,7 @@
             android:layout_marginLeft="5dp"
             android:background="@null"
             android:onClick="onClick"
-            android:src="@mipmap/ic_back_white" />
+            android:src="@drawable/icon_back" />
 
         <TextView
             android:id="@+id/txv_toobal_title"
@@ -32,7 +33,10 @@
             android:textSize="18sp" />
     </RelativeLayout>
 
+
+
     <ScrollView
+        android:layout_below="@+id/rlt_toobar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -44,19 +48,20 @@
             android:padding="10dp">
 
             <RelativeLayout
+
                 android:id="@+id/register_relative_imgage"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:background="@color/color_gray">
+                android:background="@drawable/spa_one">
 
                 <android.support.design.widget.FloatingActionButton
-                    android:onClick="onClick"
                     android:id="@+id/fl_btn_add_image"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="10dp"
                     android:layout_marginTop="10dp"
+                    android:onClick="onClick"
                     app:srcCompat="@drawable/if_camera" />
 
                 <android.support.v4.view.ViewPager
@@ -76,11 +81,7 @@
                 </me.relex.circleindicator.CircleIndicator>
 
             </RelativeLayout>
-            <ImageView
-                android:background="@color/color_line"
-                android:id="@+id/img_shwo_image"
-                android:layout_width="200dp"
-                android:layout_height="200dp" />
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -95,6 +96,8 @@
                     android:textColor="@color/color_gray" />
 
                 <EditText
+                    android:gravity="center"
+                    android:textColor="@color/color_gray"
                     android:id="@+id/edt_register_Name"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -114,15 +117,43 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
+                    android:text="Founded_year"
+                    android:textColor="@color/color_gray" />
+
+                <TextView
+                    android:textColor="@color/color_gray"
+                    android:id="@+id/sp_register_Founded_year"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="8"
+                    android:background="@mipmap/bg_edit_text"
+                    android:gravity="center"
+                    android:hint="Founded_year"
+                    android:maxLines="1"
+                    android:paddingLeft="5dp"
+                    android:singleLine="true" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
                     android:text="Open"
                     android:textColor="@color/color_gray" />
 
-                <EditText
+                <TextView
+                    android:textColor="@color/color_gray"
                     android:id="@+id/sp_register_opent"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="8"
                     android:background="@mipmap/bg_edittext_spinner"
+                    android:gravity="center"
                     android:hint=" gio mo cua"
                     android:maxLines="1"
                     android:paddingLeft="5dp"
@@ -141,12 +172,13 @@
                     android:text="Close"
                     android:textColor="@color/color_gray" />
 
-                <EditText
+                <TextView
                     android:id="@+id/sp_register_close"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="8"
                     android:background="@mipmap/bg_edittext_spinner"
+                    android:gravity="center"
                     android:hint=" gio dong cua"
                     android:maxLines="1"
                     android:paddingLeft="5dp"
@@ -165,23 +197,26 @@
                     android:text="Address"
                     android:textColor="@color/color_gray" />
 
-                <EditText
+                <TextView
                     android:id="@+id/edt_register_address"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="8"
                     android:background="@mipmap/bg_edit_text"
+                    android:gravity="center"
                     android:maxLines="1"
                     android:paddingLeft="5dp"
-                    android:singleLine="true" />
+                    android:singleLine="true"
+                    android:textColor="@color/color_gray" />
             </LinearLayout>
 
-           <!-- <fragment
-                android:id="@+id/myMap"
-                android:name="com.google.android.gms.maps.MapFragment"
+
+            <fragment
+                android:id="@+id/map_register"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:layout_marginTop="10dp" />-->
+                tools:context=".MapsActivity" />
 
             <LinearLayout
 
@@ -230,6 +265,7 @@
                     android:textColor="@color/color_gray" />
 
                 <EditText
+                    android:gravity="center"
                     android:id="@+id/edt_register_phone"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -254,6 +290,7 @@
                     android:textColor="@color/color_gray" />
 
                 <EditText
+                    android:gravity="center"
                     android:id="@+id/edt_register_Email"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -277,7 +314,13 @@
                 android:textColor="@color/color_white" />
 
         </LinearLayout>
-
-
     </ScrollView>
-</LinearLayout>
+    <ProgressBar
+        android:id="@+id/prb_load"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:background="@drawable/progress"
+        android:visibility="gone" />
+</RelativeLayout>

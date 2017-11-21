@@ -28,7 +28,7 @@
         android:layout_alignBottom="@+id/img_update_spa_Avatar"
         android:layout_alignEnd="@+id/img_update_spa_Avatar"
         android:layout_marginBottom="10dp"
-        app:backgroundTint="@color/color_white_gray"
+        app:backgroundTint="@color/color_white"
         app:srcCompat="@mipmap/icons_camera_black" />
 
 
