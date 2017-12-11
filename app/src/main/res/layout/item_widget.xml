@@ -22,7 +22,7 @@
             android:id="@+id/img_icon_tab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/ic_tab_hots_selected" />
+            android:src="@drawable/ic_tab_hots_selected" />
 
     </LinearLayout>
 

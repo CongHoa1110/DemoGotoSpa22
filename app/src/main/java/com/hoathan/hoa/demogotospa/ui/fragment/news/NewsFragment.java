@@ -103,6 +103,11 @@ public class NewsFragment extends BaseFragment {
             public void onClickItemPhone(int position) {
             dialogPhone(position);
             }
+
+            @Override
+            public void onClickItemAvata(int position) {
+
+            }
         });
         rcvSpa.setAdapter(adapter);
         adapter.setOnLoadMoreListener(new OnLoadMoreListener() {

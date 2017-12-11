@@ -30,7 +30,7 @@
                     android:layout_marginLeft="@dimen/dimen_10"
                     android:layout_marginRight="@dimen/dimen_10"
                     android:layout_marginTop="@dimen/dimen_10"
-                    android:src="@mipmap/icon_language" />
+                    android:src="@drawable/ic_facebook" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -62,7 +62,7 @@
                     android:layout_marginLeft="@dimen/dimen_10"
                     android:layout_marginRight="@dimen/dimen_10"
                     android:layout_marginTop="@dimen/dimen_10"
-                    android:src="@mipmap/icons_notification" />
+                    android:src="@drawable/icons_notification" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -92,7 +92,7 @@
                     android:layout_marginLeft="@dimen/dimen_10"
                     android:layout_marginRight="@dimen/dimen_10"
                     android:layout_marginTop="@dimen/dimen_10"
-                    android:src="@mipmap/icons_about" />
+                    android:src="@drawable/icons_about" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -126,7 +126,7 @@
                     android:layout_marginLeft="@dimen/dimen_10"
                     android:layout_marginRight="@dimen/dimen_10"
                     android:layout_marginTop="@dimen/dimen_10"
-                    android:src="@mipmap/icons_log_out" />
+                    android:src="@drawable/icons_log_out" />
 
                 <TextView
                     android:layout_width="match_parent"

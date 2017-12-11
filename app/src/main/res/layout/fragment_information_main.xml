@@ -94,7 +94,7 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_margin="@dimen/dimen_10"
-                    android:src="@mipmap/icons_marker" />
+                    android:src="@drawable/icons_marker" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -124,7 +124,7 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_margin="@dimen/dimen_10"
-                    android:src="@mipmap/icons_chat" />
+                    android:src="@drawable/icons_chat" />
 
                 <TextView
                     android:layout_width="match_parent"

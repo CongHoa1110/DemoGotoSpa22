@@ -11,20 +11,31 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.hoathan.hoa.demogotospa.R;
+import com.hoathan.hoa.demogotospa.ui.base.BaseActivity;
 import com.hoathan.hoa.demogotospa.util.Util;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
-public class ChangerPassword extends AppCompatActivity implements View.OnClickListener {
+public class ChangerPassword extends BaseActivity implements View.OnClickListener {
     private MaterialEditText metForgrotEmail;
     private Button btnResetPassword;
-
     private FirebaseAuth mAuth;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_changer_password);
+    protected int setLayout() {
+        return R.layout.activity_changer_password;
+    }
+
+    @Override
+    protected void initialViews(Bundle savedInstanceState) {
         initUI();
+    }
+    @Override
+    protected void initialVariables() {
+    }
+
+    @Override
+    protected int getFragmentContainerResID() {
+        return 0;
     }
 
     private void initUI() {
@@ -57,9 +68,11 @@ public class ChangerPassword extends AppCompatActivity implements View.OnClickLi
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()){
-                    Toast.makeText(ChangerPassword.this, "password sen Email" + " : " + email , Toast.LENGTH_LONG).show();
+                    Toast.makeText(ChangerPassword.this,
+                            "password sen Email" + " : " + email , Toast.LENGTH_LONG).show();
                 }else {
-                    Toast.makeText(ChangerPassword.this, "fail" + task.getException(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(ChangerPassword.this, "fail" +
+                            task.getException(), Toast.LENGTH_LONG).show();
                 }
             }
         });

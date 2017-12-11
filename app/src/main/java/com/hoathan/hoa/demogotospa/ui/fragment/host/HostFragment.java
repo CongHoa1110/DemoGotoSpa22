@@ -43,9 +43,11 @@ import com.hoathan.hoa.demogotospa.R;
 import com.hoathan.hoa.demogotospa.adapter.SpaAdapterRecyclerView;
 import com.hoathan.hoa.demogotospa.data.model.Spa;
 import com.hoathan.hoa.demogotospa.listener.SpaItemListerner;
+import com.hoathan.hoa.demogotospa.ui.base.BaseActivity;
 import com.hoathan.hoa.demogotospa.ui.base.BaseFragment;
 import com.hoathan.hoa.demogotospa.ui.fragment.CommentFragment;
 import com.hoathan.hoa.demogotospa.ui.fragment.DetailSpaFragment;
+import com.hoathan.hoa.demogotospa.ui.fragment.news.ImageAvataFragment;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -178,6 +180,15 @@ public class HostFragment extends BaseFragment implements NavigationView.OnNavig
             @Override
             public void onClickItemPhone(int position) {
                 dialogPhone(position);
+            }
+
+            @Override
+            public void onClickItemAvata(int position) {
+                Bundle bundle = new Bundle();
+                bundle.putStringArrayList("SpaImage", arrayListSpaHots.get(position).getSpaImage());
+                bundle.putString("nameSpa",arrayListSpaHots.get(position).getSpaName());
+                baseActivity.setCurrentTab(BaseActivity.TITLE_HOST);
+                baseActivity.pushFragment(new ImageAvataFragment(),true,bundle);
             }
         });
         rcvSpa.setAdapter(adapter);
@@ -378,7 +389,7 @@ public class HostFragment extends BaseFragment implements NavigationView.OnNavig
         NavigationView navigationView = (NavigationView) view.findViewById(R.id.nav_view);
         View header = navigationView.getHeaderView(0);
         txvNameSpa = (TextView) header.findViewById(R.id.txv_name_spa);
-        imgImage = (CircleImageView) header.findViewById(R.id.img_image);
+        imgImage = (CircleImageView) header.findViewById(R.id.img_avata);
         srlLayout = (SwipeRefreshLayout) view.findViewById(R.id.srl_layout);
         prbLoad = (ProgressBar) view.findViewById(R.id.prb_load);
         prbLoad.setVisibility(View.VISIBLE);

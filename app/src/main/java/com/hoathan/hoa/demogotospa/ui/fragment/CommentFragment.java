@@ -1,12 +1,15 @@
 package com.hoathan.hoa.demogotospa.ui.fragment;
 
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Base64;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -19,8 +22,8 @@ import com.hoathan.hoa.demogotospa.adapter.ImageViewpageAdapter;
 import com.hoathan.hoa.demogotospa.data.model.Spa;
 import com.hoathan.hoa.demogotospa.listener.ImageViewpagerListener;
 import com.hoathan.hoa.demogotospa.ui.base.BaseFragment;
-import com.squareup.picasso.Picasso;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Timer;
@@ -124,9 +127,15 @@ public class CommentFragment extends BaseFragment implements View.OnClickListene
             int vitri = spa.getSpaImage().size() - 1;
             Random random = new Random();
             int vt = random.nextInt(vitri);
-            Picasso.with(getActivity()).load(spa.getSpaImage().get(vt)).resize(50, 50)
+            try {
+                Bitmap imageBitmap = decodeFromFireBaseBase64(spa.getSpaImage().get(vt));
+                imgCommentSpa.setImageBitmap(imageBitmap);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+          /*  Picasso.with(getActivity()).load(spa.getSpaImage().get(vt)).resize(50, 50)
                     .centerCrop().into(imgCommentSpa);
-
+*/
             imgViewPager = new ArrayList<>();
             if (spa.getSpaImage() != null) {
                 imgViewPager.addAll(spa.getSpaImage());
@@ -157,7 +166,6 @@ public class CommentFragment extends BaseFragment implements View.OnClickListene
             public void onPageSelected(int position) {
                 curentpage = 1;
             }
-
             @Override
             public void onPageScrollStateChanged(int state) {
                 if (state == ViewPager.SCROLL_STATE_IDLE) {
@@ -190,5 +198,9 @@ public class CommentFragment extends BaseFragment implements View.OnClickListene
                 handler.post(update);
             }
         }, 2000, 2000);
+    }
+    public static Bitmap decodeFromFireBaseBase64(String image) throws IOException {
+        byte[] decodedByteArray = android.util.Base64.decode(image, Base64.DEFAULT);
+        return BitmapFactory.decodeByteArray(decodedByteArray, 0, decodedByteArray.length);
     }
 }

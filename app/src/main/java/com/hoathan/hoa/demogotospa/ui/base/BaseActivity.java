@@ -46,7 +46,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected abstract void initialVariables();
 
     protected abstract int getFragmentContainerResID();
-    protected abstract int getFragmentContainerResIDFull();
 
     public void pushFragment(Fragment fragment, boolean shoulAdd) {
         if (shoulAdd) {
@@ -54,37 +53,13 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-      //  fragmentTransaction.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
-        fragmentTransaction.replace(getFragmentContainerResID(), fragment, fragment.getClass().getSimpleName());
-        fragmentTransaction.commitAllowingStateLoss();
-
-    }
-    public void pushFragmentFull(Fragment fragment, boolean shoulAdd) {
-        if (shoulAdd) {
-            typeStackMap.get(currentTab).push(fragment);
-        }
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         //  fragmentTransaction.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
-        fragmentTransaction.replace(getFragmentContainerResIDFull(), fragment, fragment.getClass().getSimpleName());
-        fragmentTransaction.commitAllowingStateLoss();
-
-    }
-    public void pushFragment(Fragment fragment, boolean shoulAdd,Bundle bundle) {
-        if (bundle != null) {
-            fragment.setArguments(bundle);
-        }
-        if (shoulAdd) {
-            typeStackMap.get(currentTab).push(fragment);
-        }
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-       // fragmentTransaction.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
         fragmentTransaction.replace(getFragmentContainerResID(), fragment, fragment.getClass().getSimpleName());
         fragmentTransaction.commitAllowingStateLoss();
 
     }
- public void pushFragmentFull(Fragment fragment, boolean shoulAdd,Bundle bundle) {
+
+    public void pushFragment(Fragment fragment, boolean shoulAdd, Bundle bundle) {
         if (bundle != null) {
             fragment.setArguments(bundle);
         }
@@ -93,8 +68,8 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-       // fragmentTransaction.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
-        fragmentTransaction.replace(getFragmentContainerResIDFull(), fragment, fragment.getClass().getSimpleName());
+        // fragmentTransaction.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+        fragmentTransaction.replace(getFragmentContainerResID(), fragment, fragment.getClass().getSimpleName());
         fragmentTransaction.commitAllowingStateLoss();
 
     }
@@ -106,18 +81,6 @@ public abstract class BaseActivity extends AppCompatActivity {
             currentStack.pop();
             if (fragment != null) {
                 pushFragment(fragment, false);
-                //sendBroadcast(new Intent("update_action_bar"));
-            }
-        }
-    }
-    public void popFragmentfull() {
-        Stack<Fragment> currentStack = typeStackMap.get(currentTab);
-        if (currentStack.size() > 1) {
-            Fragment fragment = currentStack.elementAt(currentStack.size() - 2);
-            currentStack.pop();
-            if (fragment != null) {
-                pushFragmentFull(fragment, false);
-                //sendBroadcast(new Intent("update_action_bar"));
             }
         }
     }
@@ -138,20 +101,13 @@ public abstract class BaseActivity extends AppCompatActivity {
                 fragmentTransaction.commitAllowingStateLoss();
             }
         }
-
     }
 
     @Override
     public void onBackPressed() {
-        Log.d("sise ", "sise:  " + currentTab + " " + typeStackMap.get(currentTab).size());
-        if (typeStackMap.get(currentTab).size() <= 1 ){
+        if (typeStackMap.get(currentTab).size() <= 1) {
             super.onBackPressed();
         } else {
-            /*if (typeStackMap.get(currentTab).size()==2){
-              *//*  sendBroadcast(new Intent("update_action_bar"));
-                Log.e("send", "sebd");*//*
-               popFragment();
-            }*/
             popFragment();
         }
     }

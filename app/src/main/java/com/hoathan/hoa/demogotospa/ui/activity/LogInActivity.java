@@ -85,12 +85,12 @@ public class LogInActivity extends BaseActivity implements View.OnClickListener,
         progressDialog.setTitle("login");
         progressDialog.setMessage("load....");
         setRemember();
-        if (mAuth.getCurrentUser() != null) {
+      /*  if (mAuth.getCurrentUser() != null) {
             startActivity(new Intent(LogInActivity.this, HomeActivity.class));
             overridePendingTransition(R.anim.anim_intent_entervao, R.anim.anim_intent_editra);
             finish();
         }
-
+*/
     }
 
     @Override
@@ -98,10 +98,6 @@ public class LogInActivity extends BaseActivity implements View.OnClickListener,
         return 0;
     }
 
-    @Override
-    protected int getFragmentContainerResIDFull() {
-        return 0;
-    }
 
     @Override
     public void onClick(View view) {
@@ -141,14 +137,12 @@ public class LogInActivity extends BaseActivity implements View.OnClickListener,
                 finish();
                 break;
             case R.id.txv_sign_in:
-
                 startActivity(new Intent(LogInActivity.this, SingnInActivity.class));
                 overridePendingTransition(R.anim.anim_intent_entervao, R.anim.anim_intent_editra);
                 finish();
                 break;
         }
     }
-
 
     private void initUI() {
         callbackManager = CallbackManager.Factory.create();

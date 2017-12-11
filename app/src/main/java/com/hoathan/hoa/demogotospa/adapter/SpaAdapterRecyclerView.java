@@ -1,8 +1,11 @@
 package com.hoathan.hoa.demogotospa.adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,8 +19,8 @@ import com.hoathan.hoa.demogotospa.R;
 import com.hoathan.hoa.demogotospa.data.model.Spa;
 import com.hoathan.hoa.demogotospa.listener.OnLoadMoreListener;
 import com.hoathan.hoa.demogotospa.listener.SpaItemListerner;
-import com.squareup.picasso.Picasso;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -31,12 +34,10 @@ public class SpaAdapterRecyclerView extends RecyclerView.Adapter<RecyclerView.Vi
     private ArrayList<Spa> arrayListSpaSearch;
     private OnLoadMoreListener mOnLoadMoreListener;
     private SpaItemListerner spaItemListerner;
-
     private final int VIEW_TYPE_ITEM = 0;
     private final int VIEW_TYPE_LOADING = 1;
 
     private boolean isLoading;
-
     private int visibleThreshold = 5;
     private int lastVisibleItem, totalItemCount;
 
@@ -90,7 +91,7 @@ public class SpaAdapterRecyclerView extends RecyclerView.Adapter<RecyclerView.Vi
     }
 
     static class SpaViewHolder extends RecyclerView.ViewHolder {
-        ImageView imgSpa, imgSpaIconPoint,imgSpaBinhLuan;
+        ImageView imgSpaAvata, imgSpaIconPoint,imgSpaBinhLuan;
         ImageButton imgSpaIconPhone;
         LinearLayout lnSpaPhone;
         TextView txvSpaName;
@@ -104,7 +105,7 @@ public class SpaAdapterRecyclerView extends RecyclerView.Adapter<RecyclerView.Vi
         public SpaViewHolder(View itemView) {
             super(itemView);
             imgSpaIconPhone = (ImageButton) itemView.findViewById(R.id.img_spa_icon_phone);
-            imgSpa = (ImageView) itemView.findViewById(R.id.img_spa_custom);
+            imgSpaAvata = (ImageView) itemView.findViewById(R.id.img_spa_custom);
             lnSpaPhone = (LinearLayout) itemView.findViewById(R.id.ln_spa_dienthoai);
             imgSpaBinhLuan = (ImageView) itemView.findViewById(R.id.img_spa_binhluan);
             txvSpaName = (TextView) itemView.findViewById(R.id.txv_spa_name);
@@ -151,8 +152,15 @@ public class SpaAdapterRecyclerView extends RecyclerView.Adapter<RecyclerView.Vi
                 /*int vitri = spa.getSpaImage().size() - 1;
                 Random random = new Random();
                 int vt = random.nextInt(vitri);*/
-                Picasso.with(context).load(spa.getSpaImage().get(0)).resize(100, 100)
-                        .centerCrop().into(spaViewHolder.imgSpa);
+
+                try {
+                    Bitmap imageBitmap = decodeFromFireBaseBase64(spa.getSpaImage().get(0));
+                    spaViewHolder.imgSpaAvata.setImageBitmap(imageBitmap);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                /*Picasso.with(context).load(Uri.parse(spa.getSpaImage().get(0))).resize(100, 100)
+                        .centerCrop().into(spaViewHolder.imgSpaAvata);*/
             }
           /*  holder.itemView.setOnClickListener(onClick_item_chitiet);
             holder.itemView.setTag(position);*/
@@ -164,6 +172,8 @@ public class SpaAdapterRecyclerView extends RecyclerView.Adapter<RecyclerView.Vi
             spaViewHolder.imgSpaBinhLuan.setTag(position);
             spaViewHolder.lnSpaPhone.setOnClickListener(onClick_item_phone);
             spaViewHolder.lnSpaPhone.setTag(position);
+            spaViewHolder.imgSpaAvata.setOnClickListener(onClick_item_imgAvata);
+            spaViewHolder.imgSpaAvata.setTag(position);
 
 
         } else if (holder instanceof LoadingViewHolder) {
@@ -186,6 +196,13 @@ public class SpaAdapterRecyclerView extends RecyclerView.Adapter<RecyclerView.Vi
         public void onClick(View view) {
             int position = Integer.parseInt(view.getTag().toString());
             spaItemListerner.onClickItemlike(position);
+        }
+    };
+    private View.OnClickListener onClick_item_imgAvata = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            int position = Integer.parseInt(view.getTag().toString());
+            spaItemListerner.onClickItemAvata(position);
         }
     };
     private View.OnClickListener onClick_item_binhLuan = new View.OnClickListener() {
@@ -224,5 +241,9 @@ public class SpaAdapterRecyclerView extends RecyclerView.Adapter<RecyclerView.Vi
                 }
         }
         notifyDataSetChanged();
+    }
+    public static Bitmap decodeFromFireBaseBase64(String image) throws IOException {
+        byte[] decodedByteArray = android.util.Base64.decode(image, Base64.DEFAULT);
+        return BitmapFactory.decodeByteArray(decodedByteArray, 0, decodedByteArray.length);
     }
 }

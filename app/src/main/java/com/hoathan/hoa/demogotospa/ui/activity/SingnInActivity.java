@@ -59,10 +59,6 @@ public class SingnInActivity extends BaseActivity implements View.OnClickListene
         return 0;
     }
 
-    @Override
-    protected int getFragmentContainerResIDFull() {
-        return 0;
-    }
 
     private void initUI(){
         relativeLayout = (RelativeLayout) findViewById(R.id.relativelayout);

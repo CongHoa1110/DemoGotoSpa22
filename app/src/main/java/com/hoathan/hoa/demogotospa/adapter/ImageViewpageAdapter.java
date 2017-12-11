@@ -1,7 +1,10 @@
 package com.hoathan.hoa.demogotospa.adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v4.view.PagerAdapter;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,8 +12,8 @@ import android.widget.ImageView;
 
 import com.hoathan.hoa.demogotospa.R;
 import com.hoathan.hoa.demogotospa.listener.ImageViewpagerListener;
-import com.squareup.picasso.Picasso;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -46,12 +49,18 @@ public class ImageViewpageAdapter extends PagerAdapter {
     public Object instantiateItem(ViewGroup container, final int position) {
         View view = inflater.inflate(R.layout.item_image_viewpager, container, false);
         ImageView imgFace = (ImageView) view.findViewById(R.id.img_viewpager_image);
-        Picasso.with(context)
-                .load(imge.get(position))
-                .resize(300, 300)
+       /* Picasso.with(context)
+                .load(Uri.parse(imge.get(position)))
+                .resize(50, 50)
                 .centerCrop()
-                .into(imgFace);
+                .into(imgFace);*/
 
+        try {
+            Bitmap imageBitmap = decodeFromFireBaseBase64(imge.get(position));
+            imgFace.setImageBitmap(imageBitmap);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         container.addView(view);
         imgFace.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,5 +75,9 @@ public class ImageViewpageAdapter extends PagerAdapter {
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
         container.removeView((View) object);
+    }
+    public static Bitmap decodeFromFireBaseBase64(String image) throws IOException {
+        byte[] decodedByteArray = android.util.Base64.decode(image, Base64.DEFAULT);
+        return BitmapFactory.decodeByteArray(decodedByteArray, 0, decodedByteArray.length);
     }
 }

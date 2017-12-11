@@ -14,7 +14,9 @@ import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -24,6 +26,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
+import android.util.Base64;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -63,8 +66,9 @@ import com.hoathan.hoa.demogotospa.data.model.Spa;
 import com.hoathan.hoa.demogotospa.listener.ImageViewpagerListener;
 import com.hoathan.hoa.demogotospa.ui.base.BaseFragment;
 
+import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
-import java.io.InputStream;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -91,7 +95,6 @@ public class RegisterSpaFragment extends BaseFragment implements View.OnClickLis
     private FloatingActionButton flbtnAddImage;
     private ImageView imgBack;
     private Button btnRegister;
-    private EditText edtName;
     private ProgressBar prbLoad;
 
     private StorageReference mStorageReference;
@@ -99,24 +102,17 @@ public class RegisterSpaFragment extends BaseFragment implements View.OnClickLis
 
     private CircleIndicator circleIndicator;
     private ArrayList<String> imgViewPager;
-    private HomeFragment homeFragment;
 
     private GoogleMap mMap;
 
-    private EditText edtRegisterName, edtRegiterPhone, edtRegisterEmail, edtRegisterdesciption;
+    private EditText edtRegisterName, edtRegisterPhone, edtRegisterEmail, edtRegisterdesciption;
     private TextView edtRegisterClose, edtRegisteropen, edtRegisterYeae, edtRegisterAddress;
 
     private DatabaseReference spaReference;
     private LatLng lng;
     private String spaTime = "";
 
-    private Button btnDemo;
-
-
-    public RegisterSpaFragment newInstance() {
-        RegisterSpaFragment registerSpaFragment = new RegisterSpaFragment();
-        return registerSpaFragment;
-    }
+    private ArrayList<Bitmap> bitmap = null;
 
     @Override
     protected int setLayout() {
@@ -131,6 +127,9 @@ public class RegisterSpaFragment extends BaseFragment implements View.OnClickLis
         addImage();
         iUnit(view);
         addTime();
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            checkLocationPermission();
+        }
     }
 
     @Override
@@ -159,7 +158,7 @@ public class RegisterSpaFragment extends BaseFragment implements View.OnClickLis
         edtRegisterName = (EditText) view.findViewById(R.id.edt_register_Name);
         edtRegisterAddress = (TextView) view.findViewById(R.id.edt_register_address);
         edtRegisterAddress.setOnClickListener(this);
-        edtRegiterPhone = (EditText) view.findViewById(R.id.edt_register_phone);
+        edtRegisterPhone = (EditText) view.findViewById(R.id.edt_register_phone);
         edtRegisterEmail = (EditText) view.findViewById(R.id.edt_register_Email);
         edtRegisterYeae = (TextView) view.findViewById(R.id.sp_register_Founded_year);
 
@@ -220,6 +219,8 @@ public class RegisterSpaFragment extends BaseFragment implements View.OnClickLis
 
             }
         });
+        circleIndicator.setViewPager(viewPager);
+        viewPager.setAdapter(adapter);
     }
 
 
@@ -254,11 +255,11 @@ public class RegisterSpaFragment extends BaseFragment implements View.OnClickLis
 
                 switch (menuItem.getItemId()) {
                     case R.id.menu_chupanh:
-                        askForPermission(android.Manifest.permission.CAMERA, REQUEST_PERMISSION_CAMERA);
+                        askForPermission(android.Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, REQUEST_PERMISSION_CAMERA);
                         //ActivityCompat.requestPermissions(baseActivity, new String[]{Manifest.permission.CAMERA}, REQUEST_CODE_CAMERA);
                         break;
                     case R.id.menu_chonanhcosan:
-                        askForPermission(Manifest.permission.READ_EXTERNAL_STORAGE, REQUEST_CODE_FODER);
+                        askForPermission(Manifest.permission.READ_EXTERNAL_STORAGE, android.Manifest.permission.CAMERA, REQUEST_CODE_FODER);
                         break;
                 }
 
@@ -282,7 +283,6 @@ public class RegisterSpaFragment extends BaseFragment implements View.OnClickLis
                     } else {
                         Toast.makeText(getActivity(), "ban khong cho phep quyen camera", Toast.LENGTH_SHORT).show();
                     }
-
                     break;
                 case REQUEST_CODE_FODER:
                     if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -306,33 +306,30 @@ public class RegisterSpaFragment extends BaseFragment implements View.OnClickLis
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
+        firePage = data.getData();
         if (requestCode == REQUEST_CODE_CAMERA && resultCode == RESULT_OK && data != null) {
-            Bitmap bitmap = (Bitmap) data.getExtras().get("data");
-            // imgShwo.setImageBitmap(bitmap)
-            firePage = data.getData();
-            imgViewPager.add(String.valueOf(firePage));
-            circleIndicator.setViewPager(viewPager);
-            viewPager.setAdapter(adapter);
-            viewPager.setCurrentItem(imgViewPager.size() - 1);
 
+            Bitmap bitmap = getBitmapFromUri(getContext(), firePage);
+            ByteArrayOutputStream os = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, os);
+            String imageEncoded = Base64.encodeToString(os.toByteArray(), Base64.DEFAULT);
+            imgViewPager.add(imageEncoded);
+            circleIndicator.setViewPager(viewPager);
+            adapter.notifyDataSetChanged();
+            viewPager.setCurrentItem(imgViewPager.size() - 1);
+            //upLoadFileImage();
         }
         if (requestCode == REQUEST_CODE_FODER && resultCode == RESULT_OK && data != null) {
-            firePage = data.getData();
+            //upLoadFileImage();
 
-            try {
-                InputStream inputStream = getActivity().getContentResolver().openInputStream(firePage);
-                Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-                // imgShwo.setImageBitmap(bitmap);
-                imgViewPager.add(String.valueOf(firePage));
-                circleIndicator.setViewPager(viewPager);
-                viewPager.setAdapter(adapter);
-                viewPager.setCurrentItem(imgViewPager.size() - 1);
-
-
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
+            Bitmap bitmap = getBitmapFromUri(getContext(), firePage);
+            ByteArrayOutputStream os = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, os);
+            String imageEncoded = Base64.encodeToString(os.toByteArray(), Base64.DEFAULT);
+            imgViewPager.add(imageEncoded);
+            circleIndicator.setViewPager(viewPager);
+            adapter.notifyDataSetChanged();
+            viewPager.setCurrentItem(imgViewPager.size() - 1);
 
         }
         if (requestCode == PLACE_AUTOCOMPLETE_REQUEST_CODE) {
@@ -354,29 +351,33 @@ public class RegisterSpaFragment extends BaseFragment implements View.OnClickLis
                 Log.i("fail", status.getStatusMessage());
 
             } else if (resultCode == RESULT_CANCELED) {
-                // The user canceled the operation.
+
+            }
+            if (requestCode == MY_PERMISSIONS_REQUEST_LOCATION){
+                mMap.setMyLocationEnabled(true);
             }
         }
-        //upLoadFileImage();
+
+
+
     }
 
-    private void askForPermission(String permission, Integer requestCode) {
-        if (ContextCompat.checkSelfPermission(getActivity(), permission) != PackageManager.PERMISSION_GRANTED) {
+    private void askForPermission(String permission1, String permission2, Integer requestCode) {
+        if (ContextCompat.checkSelfPermission(getActivity(), permission1) != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(getActivity(), permission2) != PackageManager.PERMISSION_GRANTED) {
 
             // Should we show an explanation?
-            if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), permission)) {
+            if (shouldShowRequestPermissionRationale(permission1) || shouldShowRequestPermissionRationale(permission1)) {
 
-                //This is called if user has denied the permission before
-                //In this case I am just asking the permission again
-                ActivityCompat.requestPermissions(getActivity(), new String[]{permission}, requestCode);
+                //This is called if user has denied the permission1 before
+                //In this case I am just asking the permission1 again
+                requestPermissions(new String[]{permission1, permission2}, requestCode);
 
             } else {
-
-                ActivityCompat.requestPermissions(getActivity(), new String[]{permission}, requestCode);
+                requestPermissions(new String[]{permission1, permission2}, requestCode);
             }
         } else {
 
-            Toast.makeText(getActivity(), "" + permission + " is already granted.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "" + permission1 + " is already granted.", Toast.LENGTH_SHORT).show();
             //TODO
 
             switch (requestCode) {
@@ -396,23 +397,56 @@ public class RegisterSpaFragment extends BaseFragment implements View.OnClickLis
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(getActivity(),
-                Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
-        mMap.setMyLocationEnabled(true);
 
+        mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            //User has previously accepted this permission
+            if (ActivityCompat.checkSelfPermission(getContext(),
+                    Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                mMap.setMyLocationEnabled(true);
+            }
+        } else {
+            //Not in api-23, no need to prompt
+            mMap.setMyLocationEnabled(true);
+        }
+    }
+
+    public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
+
+    public boolean checkLocationPermission() {
+        if (ContextCompat.checkSelfPermission(getContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
+                    Manifest.permission.ACCESS_FINE_LOCATION)) {
+
+                // Show an expanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
+                //  TODO: Prompt with explanation!
+
+                //Prompt the user once explanation has been shown
+                ActivityCompat.requestPermissions(getActivity(),
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                        MY_PERMISSIONS_REQUEST_LOCATION);
+
+            } else {
+                // No explanation needed, we can request the permission.
+                ActivityCompat.requestPermissions(getActivity(),
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                        MY_PERMISSIONS_REQUEST_LOCATION);
+            }
+            return false;
+        } else {
+            return true;
+        }
     }
 
     private void upLoadFileImage() {
+        prbLoad.setVisibility(View.VISIBLE);
         if (firePage != null) {
             StorageReference riversRef = mStorageReference.child("images/" + firePage.getLastPathSegment());
             UploadTask uploadTask = riversRef.putFile(firePage);
@@ -427,17 +461,27 @@ public class RegisterSpaFragment extends BaseFragment implements View.OnClickLis
             }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Toast.makeText(baseActivity, "upload anh", Toast.LENGTH_SHORT).show();
+
                     Uri dowloadUri = taskSnapshot.getDownloadUrl();
                     imgViewPager.add(String.valueOf(dowloadUri));
+                    circleIndicator.setViewPager(viewPager);
                     adapter.notifyDataSetChanged();
+                    viewPager.setCurrentItem(imgViewPager.size() - 1);
+
+
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            prbLoad.setVisibility(View.INVISIBLE);
+                        }
+                    }, 3000);
                     Log.d("AAA", "onSuccess: " + dowloadUri);
                 }
             }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                    double progret = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
-                    Toast.makeText(baseActivity, progret + "", Toast.LENGTH_SHORT).show();
+                    /*double progret = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
+                    Toast.makeText(baseActivity, progret + "", Toast.LENGTH_SHORT).show();*/
 
                 }
             })
@@ -447,6 +491,7 @@ public class RegisterSpaFragment extends BaseFragment implements View.OnClickLis
         }
 
     }
+
 
     private boolean validateForm() {
         boolean valid = true;
@@ -488,12 +533,12 @@ public class RegisterSpaFragment extends BaseFragment implements View.OnClickLis
         } else {
             edtRegisterdesciption.setError(null);
         }
-        String phoneSpa = edtRegiterPhone.getText().toString();
+        String phoneSpa = edtRegisterPhone.getText().toString();
         if (TextUtils.isEmpty(phoneSpa)) {
-            edtRegiterPhone.setError("Required.");
+            edtRegisterPhone.setError("Required.");
             valid = false;
         } else {
-            edtRegiterPhone.setError(null);
+            edtRegisterPhone.setError(null);
         }
         String emailSpa = edtRegisterEmail.getText().toString();
         if (TextUtils.isEmpty(emailSpa)) {
@@ -589,13 +634,12 @@ public class RegisterSpaFragment extends BaseFragment implements View.OnClickLis
         String openSpa = edtRegisteropen.getText().toString().trim();
         String closeSpa = edtRegisterClose.getText().toString().trim();
         String addressSpa = edtRegisterAddress.getText().toString().trim();
-        String phoneSpa = edtRegiterPhone.getText().toString().trim();
+        String phoneSpa = edtRegisterPhone.getText().toString().trim();
         String emailSpa = edtRegisterEmail.getText().toString().trim();
         String desciptionSpa = edtRegisterdesciption.getText().toString().trim();
         String key = spaReference.push().getKey();
         String spaLocation = lng.latitude + "," + lng.longitude;
         Random random = new Random();
-
         Spa spa = new Spa(key, random.nextInt(100), imgViewPager, nameSpa, addressSpa,
                 spaLocation, desciptionSpa, yearSpa, openSpa, closeSpa, phoneSpa, emailSpa, spaTime, false);
         spaReference.child(key).setValue(spa, new DatabaseReference.CompletionListener() {
@@ -653,5 +697,51 @@ public class RegisterSpaFragment extends BaseFragment implements View.OnClickLis
         String goal = outFormat.format(date);
         spaTime = destFormat.format(calendar.getTime()) + " " + goal;
         Toast.makeText(baseActivity, destFormat.format(calendar.getTime()) + " " + goal, Toast.LENGTH_SHORT).show();
+    }
+
+    public Bitmap getBitmapFromUri(Context contextAdapter, Uri uriFile) {
+        Bitmap bitmap = null;
+        try {
+            bitmap = decodeUri(contextAdapter, uriFile);
+
+        } catch (IOException e) {
+            bitmap = BitmapFactory.decodeResource(contextAdapter.getResources(),
+                    R.mipmap.ic_launcher);
+            e.printStackTrace();
+        }
+        return bitmap;
+    }
+
+    public static Bitmap decodeUri(Context context, Uri selectedImage)
+            throws FileNotFoundException {
+
+        // Decode image size
+        BitmapFactory.Options o = new BitmapFactory.Options();
+        o.inJustDecodeBounds = true;
+        BitmapFactory.decodeStream(context.getContentResolver()
+                .openInputStream(selectedImage), null, o);
+
+        // The new size we want to scale to
+        final int REQUIRED_SIZE = 140;
+
+        // Find the correct scale value. It should be the power of 2.
+        int width_tmp = o.outWidth, height_tmp = o.outHeight;
+        int scale = 1;
+        while (true) {
+            if (width_tmp / 2 < REQUIRED_SIZE
+                    || height_tmp / 2 < REQUIRED_SIZE) {
+                break;
+            }
+            width_tmp /= 2;
+            height_tmp /= 2;
+            scale *= 2;
+        }
+
+        // Decode with inSampleSize
+        BitmapFactory.Options o2 = new BitmapFactory.Options();
+        o2.inSampleSize = scale;
+        return BitmapFactory.decodeStream(context.getContentResolver()
+                .openInputStream(selectedImage), null, o2);
+
     }
 }

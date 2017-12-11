@@ -9,4 +9,5 @@ public interface SpaItemListerner {
     void onClickItemlike(int position);
     void onClickItemVBinhLuan(int position);
     void onClickItemPhone(int position);
+    void onClickItemAvata(int position);
 }

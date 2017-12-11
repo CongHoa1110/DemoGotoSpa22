@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:drawable="@mipmap/icon_menu_selecter"
+        android:drawable="@drawable/icon_menu_selecter"
         android:state_selected="true"/>
     <item
-        android:drawable="@mipmap/icon_menu_selecter"
+        android:drawable="@drawable/icon_menu_selecter"
         android:state_pressed="true"/>
     <item
-        android:drawable="@mipmap/icon_menu_unselecter"/>
+        android:drawable="@drawable/icon_menu_unselecter"/>
 </selector>

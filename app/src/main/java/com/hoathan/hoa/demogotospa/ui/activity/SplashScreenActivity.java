@@ -33,8 +33,10 @@ public class SplashScreenActivity extends BaseActivity {
             startActivity(new Intent(SplashScreenActivity.this, HomeActivity.class));
             overridePendingTransition(R.anim.anim_intent_entervao, R.anim.anim_intent_editra);
             finish();
+        }else {
+            nextAction();
         }
-        nextAction();
+
     }
 
     @Override
@@ -46,10 +48,6 @@ public class SplashScreenActivity extends BaseActivity {
         return 0;
     }
 
-    @Override
-    protected int getFragmentContainerResIDFull() {
-        return 0;
-    }
 
     private void initUI() {
         mAuth = FirebaseAuth.getInstance();

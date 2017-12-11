@@ -9,7 +9,7 @@
         app:showAsAction="never" />
     <item
         android:id="@+id/menu_search_host"
-        android:icon="@mipmap/icons_search"
+        android:icon="@drawable/icons_search"
         android:title="setting"
         app:actionViewClass="android.support.v7.widget.SearchView"
         app:showAsAction="ifRoom|collapseActionView" />

@@ -22,14 +22,14 @@
         android:src="@drawable/spa_two" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fl_btn_add_image"
+        android:id="@+id/fl_update_image"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_alignBottom="@+id/img_update_spa_Avatar"
         android:layout_alignEnd="@+id/img_update_spa_Avatar"
         android:layout_marginBottom="10dp"
         app:backgroundTint="@color/color_white"
-        app:srcCompat="@mipmap/icons_camera_black" />
+        app:srcCompat="@drawable/icons_camera_black" />
 
 
 
