@@ -24,8 +24,8 @@
             android:layout_gravity="center"
             android:text="Toobar"
             android:textColor="@color/color_white"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textSize="18sp"
+            />
 
         <ImageView
             android:id="@+id/toolbar_back"

@@ -32,8 +32,8 @@
                 android:layout_gravity="center"
                 android:text="Comment"
                 android:textColor="@color/color_white"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:textSize="@dimen/text_18"
+                />
 
             <ImageView
                 android:id="@+id/img_comment_back"
