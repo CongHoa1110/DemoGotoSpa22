@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#03a339</color>
-    <color name="colorPrimaryDark">#03a339</color>
+    <color name="colorPrimary">#0ea340</color>
+    <color name="colorPrimaryDark">#0ea340</color>
     <color name="colorAccent">#e21944</color>
     <color name="color_line">#e5e5e5</color>
     <color name="color_status">#FAFAFA</color>
     <color name="color_line2">#e5e5e5</color>
+    <color name="color_google">#CE4332</color>
     <color name="color_gray">#656464</color>
     <color name="color_black">#333030</color>
     <color name="color_white">#ffffff</color>
     <color name="colorFacebook">#4267B2</color>
     <color name="colorFacebookDark">#0012FF</color>
+    <color name="colorFacebookbutton">#3761C6</color>
+
 </resources>

@@ -9,8 +9,8 @@
 
     <ImageView
         android:id="@+id/img_logo"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/dimen_10"
         android:src="@drawable/logo_spa" />
@@ -46,8 +46,8 @@
         android:id="@+id/met_log_in_password"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/met_log_in_email"
         android:layout_below="@+id/met_log_in_email"
-        android:layout_centerHorizontal="true"
         android:hint="@string/hint_login_text_pass"
         android:inputType="textPassword"
         android:textColorHint="@color/color_line"
@@ -64,70 +64,62 @@
         android:id="@+id/cb_remember"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/ln_fago"
         android:layout_below="@+id/met_log_in_password"
-        android:layout_marginLeft="@dimen/dimen_30"
-        android:layout_marginTop="@dimen/dimen_10"
         android:checked="true"
         android:text="Remember" />
 
     <Button
         android:id="@+id/btn_login"
-        android:layout_width="wrap_content"
-        android:layout_height="35dp"
-        android:layout_alignParentRight="true"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
         android:layout_below="@+id/cb_remember"
-        android:layout_marginRight="@dimen/dimen_40"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dimen_20"
         android:background="@drawable/button_selecter"
-        android:onClick="onClick"
         android:text="Login"
         android:textColor="@color/color_white" />
 
     <LinearLayout
         android:id="@+id/ln_fago"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/btn_login"
         android:layout_centerInParent="true"
         android:layout_marginRight="@dimen/dimen_30"
         android:layout_marginTop="@dimen/dimen_10">
 
-        <ImageButton
-            android:onClick="onClick"
+
+        <ImageView
+            android:background="@drawable/button_face"
             android:id="@+id/img_login_facebook"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_alignParentRight="true"
-            android:background="@drawable/button_selecter"
-            android:scaleType="fitXY"
-            android:src="@drawable/ic_facebook" />
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:src="@drawable/ic_facebook"
+            android:textAllCaps="false" />
 
-        <ImageButton
-            android:onClick="onClick"
+        <ImageView
+            android:background="@drawable/button_google"
+            android:layout_width="0dp"
             android:id="@+id/img_login_google"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_alignRight="@+id/img_facebook"
-            android:layout_below="@+id/img_facebook"
-            android:layout_marginRight="@dimen/dimen_10"
-            android:background="@drawable/button_selecter"
-            android:scaleType="fitXY"
+            android:layout_height="40dp"
+            android:layout_marginLeft="@dimen/dimen_10"
+            android:layout_weight="1"
             android:src="@drawable/google"
-
-            />
+            android:textAllCaps="false" />
     </LinearLayout>
 
     <TextView
-        android:onClick="onClick"
         android:id="@+id/txv_forgot_password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/ln_fago"
         android:layout_centerInParent="true"
-        android:layout_marginTop="@dimen/dimen_5"
+        android:layout_marginTop="@dimen/dimen_10"
         android:text="Forgot password ?" />
 
     <TextView
-        android:onClick="onClick"
         android:id="@+id/txv_sign_in"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

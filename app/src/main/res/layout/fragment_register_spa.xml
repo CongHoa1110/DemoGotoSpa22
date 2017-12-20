@@ -34,13 +34,12 @@
     </RelativeLayout>
 
 
-
     <ScrollView
-        android:scrollbars="none"
-        android:layout_below="@+id/rlt_toobar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_below="@+id/rlt_toobar"
+        android:orientation="vertical"
+        android:scrollbars="none">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -97,16 +96,16 @@
                     android:textColor="@color/color_gray" />
 
                 <EditText
-                    android:gravity="center"
-                    android:textColor="@color/color_gray"
                     android:id="@+id/edt_register_Name"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="8"
                     android:background="@drawable/bg_edit_text"
+                    android:gravity="center"
                     android:maxLines="1"
                     android:paddingLeft="5dp"
-                    android:singleLine="true" />
+                    android:singleLine="true"
+                    android:textColor="@color/color_gray" />
             </LinearLayout>
 
             <LinearLayout
@@ -118,11 +117,10 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
-                    android:text="Founded_year"
+                    android:text="Year"
                     android:textColor="@color/color_gray" />
 
                 <TextView
-                    android:textColor="@color/color_gray"
                     android:id="@+id/sp_register_Founded_year"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -132,7 +130,8 @@
                     android:hint="Founded_year"
                     android:maxLines="1"
                     android:paddingLeft="5dp"
-                    android:singleLine="true" />
+                    android:singleLine="true"
+                    android:textColor="@color/color_gray" />
             </LinearLayout>
 
             <LinearLayout
@@ -148,7 +147,6 @@
                     android:textColor="@color/color_gray" />
 
                 <TextView
-                    android:textColor="@color/color_gray"
                     android:id="@+id/sp_register_opent"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -158,7 +156,8 @@
                     android:hint=" gio mo cua"
                     android:maxLines="1"
                     android:paddingLeft="5dp"
-                    android:singleLine="true" />
+                    android:singleLine="true"
+                    android:textColor="@color/color_gray" />
             </LinearLayout>
 
             <LinearLayout
@@ -266,12 +265,12 @@
                     android:textColor="@color/color_gray" />
 
                 <EditText
-                    android:gravity="center"
                     android:id="@+id/edt_register_phone"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="8"
                     android:background="@drawable/bg_edit_text"
+                    android:gravity="center"
                     android:inputType="number"
                     android:maxLines="1"
                     android:paddingLeft="5dp"
@@ -291,12 +290,12 @@
                     android:textColor="@color/color_gray" />
 
                 <EditText
-                    android:gravity="center"
                     android:id="@+id/edt_register_Email"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="8"
                     android:background="@drawable/bg_edit_text"
+                    android:gravity="center"
                     android:maxLines="1"
                     android:paddingLeft="5dp"
                     android:singleLine="true" />
@@ -310,12 +309,12 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/button_selecter"
-                android:onClick="onClick"
                 android:text="Register"
                 android:textColor="@color/color_white" />
 
         </LinearLayout>
     </ScrollView>
+
     <ProgressBar
         android:id="@+id/prb_load"
         android:layout_width="40dp"

@@ -1,5 +1,7 @@
 package com.hoathan.hoa.demogotospa.listener;
 
+import android.view.View;
+
 /**
  * Created by Tungnguyenbk54 on 10/26/2017.
  */

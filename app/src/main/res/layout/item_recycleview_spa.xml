@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/color_white">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/img_spa_custom"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginLeft="@dimen/dimen_10"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:src="@drawable/spa_two" />
+
+    <TextView
+        android:id="@+id/txv_spa_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dimen_10"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:layout_toEndOf="@+id/img_spa_custom"
+        android:maxLines="2"
+        android:text="Heaven"
+        android:textColor="#000000"
+        android:textSize="22sp" />
+
+    <TextView
+        android:id="@+id/txv_spa_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txv_spa_name"
+        android:layout_marginLeft="@dimen/dimen_10"
+        android:layout_toEndOf="@+id/img_spa_custom"
+        android:maxLines="1"
+        android:text="Address: 58 To Huu, Ha noi"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/txv_spa_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txv_spa_address"
+        android:layout_marginLeft="@dimen/dimen_10"
+        android:layout_toEndOf="@+id/img_spa_custom"
+        android:maxLines="2"
+        android:text="Register date: 18h 18/12/2017"
+        android:textSize="12sp" />
+
+
+    <TextView
+        android:id="@+id/txv_item_spa_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/img_spa_custom"
+        android:layout_margin="@dimen/dimen_10"
+        android:text=""
+        android:textColor="@color/color_gray"
+        android:textSize="@dimen/text_18" />
+
+    <RelativeLayout
+        android:id="@+id/register_comment_imgage"
+        android:layout_width="match_parent"
+        android:layout_height="230dp"
+        android:layout_below="@+id/txv_item_spa_description"
+        android:layout_marginTop="@dimen/dimen_10"
+        >
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewpager_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/spa_two">
+
+        </android.support.v4.view.ViewPager>
+
+        <me.relex.circleindicator.CircleIndicator
+            android:id="@+id/circleindicator_item"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/dimen_5">
+
+        </me.relex.circleindicator.CircleIndicator>
+    </RelativeLayout>
+
+    <LinearLayout
+
+        android:id="@+id/lnControl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/register_comment_imgage"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/dimen_10"
+        android:paddingTop="@dimen/dimen_10">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/img_spa_icon_point"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/register_comment_imgage"
+                android:layout_marginLeft="@dimen/dimen_10"
+                android:src="@drawable/icon_nolike" />
+
+            <TextView
+                android:id="@+id/txv_spa_point"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginLeft="@dimen/dimen_10"
+                android:gravity="bottom"
+                android:text="0" />
+
+            <ImageView
+                android:id="@+id/img_spa_binhluan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:src="@drawable/icons_comment" />
+
+            <TextView
+                android:id="@+id/txv_spa_soBInhLuan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginLeft="@dimen/dimen_10"
+                android:text="0" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/img_item_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/register_comment_imgage"
+            android:layout_marginRight="@dimen/dimen_10"
+            android:layout_marginTop="@dimen/dimen_5"
+            android:src="@drawable/icons_item_menu" />
+
+    </LinearLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:layout_below="@+id/lnControl"
+        android:background="@color/color_line" />
+</RelativeLayout>

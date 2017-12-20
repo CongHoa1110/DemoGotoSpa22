@@ -109,6 +109,7 @@ aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" />
                 android:id="@+id/img_spa_icon_point"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:src="@drawable/icons_like"
                />
 
             <TextView
@@ -120,10 +121,10 @@ aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" />
 
             <ImageView
                 android:id="@+id/img_spa_binhluan"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:src="@drawable/comment" />
+                android:src="@drawable/icons_comment" />
 
             <TextView
                 android:id="@+id/txv_spa_soBInhLuan"

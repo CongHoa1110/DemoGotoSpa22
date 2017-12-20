@@ -10,6 +10,7 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
@@ -76,6 +77,8 @@ public class HostFragment extends BaseFragment implements NavigationView.OnNavig
     private TextView txvNameSpa;
 
     private SwipeRefreshLayout srlLayout;
+    private boolean isFirstLoad = true;
+
 
     @Override
     protected int setLayout() {
@@ -103,6 +106,7 @@ public class HostFragment extends BaseFragment implements NavigationView.OnNavig
                 baseActivity.pushFragment(new DetailSpaFragment()
                         , true,bundle);
                 Log.d("sisemain ", "sise main:  " + " =" + baseActivity.typeStackMap.get(TITLE_HOST).size());
+
 
             }
 
@@ -231,6 +235,12 @@ public class HostFragment extends BaseFragment implements NavigationView.OnNavig
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+    }
+
+    @Override
     protected void initialVariables() {
 
     }
@@ -321,7 +331,7 @@ public class HostFragment extends BaseFragment implements NavigationView.OnNavig
 
     private void setToobal(View view) {
         toolbar = (Toolbar) view.findViewById(R.id.toolbar);
-        toolbar.setTitle("Host");
+        toolbar.setTitle("");
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
         drawer = (DrawerLayout) view.findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -435,4 +445,5 @@ public class HostFragment extends BaseFragment implements NavigationView.OnNavig
         intent.setData(Uri.parse("tel:" + arrayListSpaHots.get(position).getSpaPhone()));
         startActivity(intent);
     }
+
 }

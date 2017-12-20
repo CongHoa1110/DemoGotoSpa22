@@ -1,15 +1,19 @@
 package com.hoathan.hoa.demogotospa.ui.activity;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.text.SpannableString;
+import android.text.style.UnderlineSpan;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,7 +43,7 @@ public class LogInActivity extends BaseActivity implements View.OnClickListener,
     private MaterialEditText metPassword;
     private Button btnLogin;
     private CheckBox cbRemember;
-    private ImageButton imgLoginFacebook, imgLoginGoogle;
+    private ImageView imgLoginFacebook, imgLoginGoogle;
     private TextView txvForgotPassword, txvSignIn;
 
     private CallbackManager callbackManager;
@@ -151,13 +155,19 @@ public class LogInActivity extends BaseActivity implements View.OnClickListener,
         metEmail = (MaterialEditText) findViewById(R.id.met_log_in_email);
         metPassword = (MaterialEditText) findViewById(R.id.met_log_in_password);
         cbRemember = (CheckBox) findViewById(R.id.cb_remember);
-        imgLoginFacebook = (ImageButton) findViewById(R.id.img_login_facebook);
+        imgLoginFacebook = (ImageView) findViewById(R.id.img_login_facebook);
         imgLoginFacebook.setOnClickListener(this);
-        imgLoginGoogle = (ImageButton) findViewById(R.id.img_login_google);
+        imgLoginGoogle = (ImageView) findViewById(R.id.img_login_google);
         imgLoginGoogle.setOnClickListener(this);
         txvForgotPassword = (TextView) findViewById(R.id.txv_forgot_password);
+        SpannableString content = new SpannableString("Forgot password ?");
+        content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
+        txvForgotPassword.setText(content);
         txvForgotPassword.setOnClickListener(this);
         txvSignIn = (TextView) findViewById(R.id.txv_sign_in);
+        SpannableString contentt = new SpannableString("sign in ?");
+        content.setSpan(new UnderlineSpan(), 0, contentt.length(), 0);
+        txvSignIn.setText(contentt);
         txvSignIn.setOnClickListener(this);
 
     }
@@ -244,6 +254,7 @@ public class LogInActivity extends BaseActivity implements View.OnClickListener,
         }
     }
 
+    @SuppressLint("WrongConstant")
     private void setRemember() {
         sharedPreferences = getSharedPreferences(NAME_SP, MODE_APPEND);
         metEmail.setText(sharedPreferences.getString("name", ""));

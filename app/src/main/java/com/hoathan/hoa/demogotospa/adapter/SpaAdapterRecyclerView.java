@@ -3,26 +3,34 @@ package com.hoathan.hoa.demogotospa.adapter;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.hoathan.hoa.demogotospa.R;
 import com.hoathan.hoa.demogotospa.data.model.Spa;
+import com.hoathan.hoa.demogotospa.listener.ImageViewpagerListener;
+import com.hoathan.hoa.demogotospa.listener.LoginGoogleListener;
 import com.hoathan.hoa.demogotospa.listener.OnLoadMoreListener;
 import com.hoathan.hoa.demogotospa.listener.SpaItemListerner;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Locale;
+
+import me.relex.circleindicator.CircleIndicator;
 
 /**
  * Created by Tungnguyenbk54 on 10/26/2017.
@@ -40,6 +48,11 @@ public class SpaAdapterRecyclerView extends RecyclerView.Adapter<RecyclerView.Vi
     private boolean isLoading;
     private int visibleThreshold = 5;
     private int lastVisibleItem, totalItemCount;
+    private LoginGoogleListener loginGoogleListener;
+
+    public void setLoginGoogleListener(LoginGoogleListener loginGoogleListener){
+        this.spaItemListerner = spaItemListerner;
+    }
 
     public SpaAdapterRecyclerView(RecyclerView mRecyclerView, Context context,
                                   ArrayList<Spa> listSpa, SpaItemListerner spaItemListerner) {
@@ -81,7 +94,7 @@ public class SpaAdapterRecyclerView extends RecyclerView.Adapter<RecyclerView.Vi
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType == VIEW_TYPE_ITEM) {
-            View view = LayoutInflater.from(context).inflate(R.layout.item_list_spa, parent, false);
+            View view = LayoutInflater.from(context).inflate(R.layout.item_recycleview_spa, parent, false);
             return new SpaViewHolder(view);
         } else if (viewType == VIEW_TYPE_LOADING) {
             View view = LayoutInflater.from(context).inflate(R.layout.row_load, parent, false);
@@ -91,7 +104,7 @@ public class SpaAdapterRecyclerView extends RecyclerView.Adapter<RecyclerView.Vi
     }
 
     static class SpaViewHolder extends RecyclerView.ViewHolder {
-        ImageView imgSpaAvata, imgSpaIconPoint,imgSpaBinhLuan;
+        ImageView imgSpaAvata, imgSpaIconPoint, imgSpaBinhLuan;
         ImageButton imgSpaIconPhone;
         LinearLayout lnSpaPhone;
         TextView txvSpaName;
@@ -101,6 +114,10 @@ public class SpaAdapterRecyclerView extends RecyclerView.Adapter<RecyclerView.Vi
         TextView txvSpaChiTiet;
         TextView txvSpaTime;
         TextView txvSpaEmail;
+        TextView txvSpadescription;
+        private ViewPager viewPager;
+        private CircleIndicator indicator;
+        ImageView imgMenuItem;
 
         public SpaViewHolder(View itemView) {
             super(itemView);
@@ -108,7 +125,9 @@ public class SpaAdapterRecyclerView extends RecyclerView.Adapter<RecyclerView.Vi
             imgSpaAvata = (ImageView) itemView.findViewById(R.id.img_spa_custom);
             lnSpaPhone = (LinearLayout) itemView.findViewById(R.id.ln_spa_dienthoai);
             imgSpaBinhLuan = (ImageView) itemView.findViewById(R.id.img_spa_binhluan);
+            imgMenuItem = (ImageView) itemView.findViewById(R.id.img_item_menu);
             txvSpaName = (TextView) itemView.findViewById(R.id.txv_spa_name);
+            txvSpadescription = (TextView) itemView.findViewById(R.id.txv_item_spa_description);
             txvSpaEmail = (TextView) itemView.findViewById(R.id.txv_Spa_Email);
             txvSpaTime = (TextView) itemView.findViewById(R.id.txv_spa_time);
             txvSpaAddress = (TextView) itemView.findViewById(R.id.txv_spa_address);
@@ -116,6 +135,8 @@ public class SpaAdapterRecyclerView extends RecyclerView.Adapter<RecyclerView.Vi
             txvSpaPoint = (TextView) itemView.findViewById(R.id.txv_spa_point);
             txvSpaPhone = (TextView) itemView.findViewById(R.id.txv_spa_phone);
             imgSpaIconPoint = (ImageView) itemView.findViewById(R.id.img_spa_icon_point);
+            viewPager = (ViewPager) itemView.findViewById(R.id.viewpager_item);
+            indicator = (CircleIndicator) itemView.findViewById(R.id.circleindicator_item);
 
 
         }
@@ -131,22 +152,22 @@ public class SpaAdapterRecyclerView extends RecyclerView.Adapter<RecyclerView.Vi
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         if (holder instanceof SpaViewHolder) {
             Spa spa = listSpa.get(position);
-            SpaViewHolder spaViewHolder = (SpaViewHolder) holder;
+            final SpaViewHolder spaViewHolder = (SpaViewHolder) holder;
             spaViewHolder.txvSpaName.setText(spa.getSpaName());
-            spaViewHolder.txvSpaTime.setText(spa.getSpaTime());
+            spaViewHolder.txvSpaTime.setText("Register Date: "+spa.getSpaTime());
             spaViewHolder.txvSpaAddress.setText("Address: " + spa.getSpaAddress());
-            spaViewHolder.txvSpaEmail.setText("Email: " + spa.getSpaEmail());
+            spaViewHolder.txvSpadescription.setText(spa.getSpaDescription());
             spaViewHolder.txvSpaPoint.setText(spa.getSpaViews() + "");
-            spaViewHolder.txvSpaPhone.setText(spa.getSpaPhone() + "");
-          if (spa.getspaLike()){
-              spaViewHolder.imgSpaIconPoint.setImageResource(R.drawable.icon_like);
-          }else {
-              spaViewHolder.imgSpaIconPoint.setImageResource(R.drawable.icon_nolike);
+            //spaViewHolder.txvSpaPhone.setText(spa.getSpaPhone() + "");
+            if (spa.getspaLike()) {
+                spaViewHolder.imgSpaIconPoint.setImageResource(R.drawable.icons_like);
+            } else {
+                spaViewHolder.imgSpaIconPoint.setImageResource(R.drawable.icon_nolike);
 
-          }
+            }
             if (spa.getSpaImage() != null) {
 
                 /*int vitri = spa.getSpaImage().size() - 1;
@@ -164,16 +185,31 @@ public class SpaAdapterRecyclerView extends RecyclerView.Adapter<RecyclerView.Vi
             }
           /*  holder.itemView.setOnClickListener(onClick_item_chitiet);
             holder.itemView.setTag(position);*/
-            spaViewHolder.txvSpaChiTiet.setOnClickListener(onClick_item_chitiet);
-            spaViewHolder.txvSpaChiTiet.setTag(position);
+            spaViewHolder.imgMenuItem.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    showMenuItem(spaViewHolder.imgMenuItem,position);
+                }
+            });
+            spaViewHolder.imgMenuItem.setTag(position);
             spaViewHolder.imgSpaIconPoint.setOnClickListener(onClick_item_icon_point);
             spaViewHolder.imgSpaIconPoint.setTag(position);
             spaViewHolder.imgSpaBinhLuan.setOnClickListener(onClick_item_binhLuan);
             spaViewHolder.imgSpaBinhLuan.setTag(position);
-            spaViewHolder.lnSpaPhone.setOnClickListener(onClick_item_phone);
-            spaViewHolder.lnSpaPhone.setTag(position);
+      /*      spaViewHolder.lnSpaPhone.setOnClickListener(onClick_item_phone);
+            spaViewHolder.lnSpaPhone.setTag(position);*/
             spaViewHolder.imgSpaAvata.setOnClickListener(onClick_item_imgAvata);
             spaViewHolder.imgSpaAvata.setTag(position);
+            ArrayList<String> imgViewPager = new ArrayList<>();
+            imgViewPager.addAll(spa.getSpaImage());
+            ImageViewpageAdapter adapter = new ImageViewpageAdapter(context, imgViewPager, new ImageViewpagerListener() {
+                @Override
+                public void onClickImage(int position) {
+
+                }
+            });
+            spaViewHolder.viewPager.setAdapter(adapter);
+            spaViewHolder.indicator.setViewPager(spaViewHolder.viewPager);
 
 
         } else if (holder instanceof LoadingViewHolder) {
@@ -219,6 +255,7 @@ public class SpaAdapterRecyclerView extends RecyclerView.Adapter<RecyclerView.Vi
             spaItemListerner.onClickItemPhone(position);
         }
     };
+
     @Override
     public int getItemCount() {
         return listSpa == null ? 0 : listSpa.size();
@@ -242,8 +279,32 @@ public class SpaAdapterRecyclerView extends RecyclerView.Adapter<RecyclerView.Vi
         }
         notifyDataSetChanged();
     }
+
     public static Bitmap decodeFromFireBaseBase64(String image) throws IOException {
         byte[] decodedByteArray = android.util.Base64.decode(image, Base64.DEFAULT);
         return BitmapFactory.decodeByteArray(decodedByteArray, 0, decodedByteArray.length);
+    }
+    private  void showMenuItem(View view, final int position){
+        PopupMenu popupMenu = new PopupMenu(context,view);
+        popupMenu.getMenuInflater().inflate(R.menu.menu_item,popupMenu.getMenu());
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.item_spa_nhantin:
+                        Toast.makeText(context, "nhan tin", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.item_spa_goi_dien:
+                        Toast.makeText(context, "goi dien", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.item_spa_xem_chitiet:
+                        spaItemListerner.onClickItemChitiet(position);
+
+                        break;
+                }
+                return false;
+            }
+        });
+        popupMenu.show();
     }
 }

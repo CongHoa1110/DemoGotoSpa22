@@ -127,9 +127,7 @@ public class RegisterSpaFragment extends BaseFragment implements View.OnClickLis
         addImage();
         iUnit(view);
         addTime();
-        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            checkLocationPermission();
-        }
+
     }
 
     @Override
@@ -233,15 +231,16 @@ public class RegisterSpaFragment extends BaseFragment implements View.OnClickLis
             case R.id.img_toobal_back:
                 baseActivity.popFragment();
                 break;
+            case R.id.edt_register_address:
+                placeAutoComplete();
+                break;
             case R.id.btn_register_register:
                 if (validateForm()) {
                     prbLoad.setVisibility(View.VISIBLE);
                     putDataSpa();
                 }
                 break;
-            case R.id.edt_register_address:
-                placeAutoComplete();
-                break;
+
 
         }
     }
@@ -344,21 +343,10 @@ public class RegisterSpaFragment extends BaseFragment implements View.OnClickLis
                                 ""))
                 ;
                 Log.i("success", "Place: " + place.getName());
-
-            } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
-                Status status = PlaceAutocomplete.getStatus(getActivity(), data);
-                // TODO: Handle the error.
-                Log.i("fail", status.getStatusMessage());
-
-            } else if (resultCode == RESULT_CANCELED) {
-
-            }
-            if (requestCode == MY_PERMISSIONS_REQUEST_LOCATION){
-                mMap.setMyLocationEnabled(true);
+            }else if (resultCode == RESULT_CANCELED) {
+                Toast.makeText(baseActivity, "erro", Toast.LENGTH_SHORT).show();
             }
         }
-
-
 
     }
 
@@ -397,52 +385,19 @@ public class RegisterSpaFragment extends BaseFragment implements View.OnClickLis
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
-        mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-
-        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            //User has previously accepted this permission
-            if (ActivityCompat.checkSelfPermission(getContext(),
-                    Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                mMap.setMyLocationEnabled(true);
-            }
-        } else {
-            //Not in api-23, no need to prompt
-            mMap.setMyLocationEnabled(true);
+        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(getActivity(),
+                Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
         }
-    }
-
-    public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
-
-    public boolean checkLocationPermission() {
-        if (ContextCompat.checkSelfPermission(getContext(),
-                Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
-
-            // Should we show an explanation?
-            if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
-                    Manifest.permission.ACCESS_FINE_LOCATION)) {
-
-                // Show an expanation to the user *asynchronously* -- don't block
-                // this thread waiting for the user's response! After the user
-                // sees the explanation, try again to request the permission.
-                //  TODO: Prompt with explanation!
-
-                //Prompt the user once explanation has been shown
-                ActivityCompat.requestPermissions(getActivity(),
-                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                        MY_PERMISSIONS_REQUEST_LOCATION);
-
-            } else {
-                // No explanation needed, we can request the permission.
-                ActivityCompat.requestPermissions(getActivity(),
-                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                        MY_PERMISSIONS_REQUEST_LOCATION);
-            }
-            return false;
-        } else {
-            return true;
-        }
+        mMap.setMyLocationEnabled(true);
     }
 
     private void upLoadFileImage() {
@@ -595,7 +550,6 @@ public class RegisterSpaFragment extends BaseFragment implements View.OnClickLis
         int nam = calendar.get(calendar.YEAR);
         final int thang = calendar.get(calendar.MONTH);
         int ngay = calendar.get(calendar.DATE);
-        int thu = calendar.get(calendar.SHORT);
         DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
@@ -613,7 +567,6 @@ public class RegisterSpaFragment extends BaseFragment implements View.OnClickLis
         boolean networkOK = this.checkInternetConnection(viewPager);
         if (!networkOK) {
             prbLoad.setVisibility(View.INVISIBLE);
-            return;
         }
         try {
             Intent intent =

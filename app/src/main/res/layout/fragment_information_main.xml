@@ -26,12 +26,8 @@
                 android:layout_gravity="center"
                 android:text="Information"
                 android:textColor="@color/color_white"
-                android:textSize="@dimen/text_18"
-                android:textStyle="bold" />
-
-
+                android:textSize="@dimen/text_18" />
         </android.support.v7.widget.Toolbar>
-
     </android.support.design.widget.AppBarLayout>
 
     <ScrollView
@@ -39,7 +35,8 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/apBar">
 
-        <RelativeLayout
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -106,7 +103,6 @@
             </LinearLayout>
 
             <View
-                android:id="@+id/view"
                 android:background="@color/color_line"
                 android:layout_below="@+id/ln_location"
                 android:layout_width="match_parent"
@@ -116,7 +112,6 @@
                 android:id="@+id/ln_spachat"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/view"
                 android:background="@drawable/texview_selecter">
 
                 <de.hdodenhof.circleimageview.CircleImageView
@@ -134,8 +129,94 @@
                     android:text="Spa Chat"
                     android:textColor="@color/color_gray" />
             </LinearLayout>
+            <View
+                android:background="@color/color_line"
+                android:layout_below="@+id/ln_location"
+                android:layout_width="match_parent"
+                android:layout_height="1dp" />
+            <LinearLayout
+                android:clickable="true"
+                android:id="@+id/ln_shop"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/texview_selecter">
 
-        </RelativeLayout>
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="@dimen/dimen_10"
+                    android:src="@drawable/icons_shopping" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/dimen_10"
+                    android:text="Shop"
+                    android:textColor="@color/color_gray" />
+            </LinearLayout>
+            <View
+                android:background="@color/color_line"
+                android:layout_below="@+id/ln_location"
+                android:layout_width="match_parent"
+                android:layout_height="1dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/texview_selecter"
+                android:clickable="true">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="@dimen/dimen_10"
+                    android:src="@drawable/icons_channel" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/dimen_10"
+                    android:text="Channel"
+                    android:textColor="@color/color_gray" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/ln_location"
+                android:background="@color/color_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/texview_selecter"
+                android:clickable="true">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="@dimen/dimen_10"
+                    android:src="@drawable/icons_game" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/dimen_10"
+                    android:text="Game"
+                    android:textColor="@color/color_gray" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/ln_location"
+                android:background="@color/color_line" />
+
+
+        </LinearLayout>
 
 
     </ScrollView>

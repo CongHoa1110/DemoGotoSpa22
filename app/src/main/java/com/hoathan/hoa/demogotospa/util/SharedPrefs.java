@@ -9,6 +9,7 @@ public class SharedPrefs {
 
     private static final String PREFS_NAME = "multi_language_active";
     public static final String LANGUAGE = "langauge";
+    public static final String ROLE_MODE = "ROLE_MODE";
 
     private static SharedPrefs mInstance;
     private SharedPreferences mSharedPreferences;
